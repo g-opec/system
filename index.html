@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://g-opec.github.io/master/fav/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://g-opec.github.io/master/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://g-opec.github.io/master/fav/favicon-16x16.png">
+    <link rel="manifest" href="https://g-opec.github.io/master/fav/site.webmanifest">
+    <title>G-opec - Gestão de Mídia Inteligente</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #2C2C32;
+            --bg-darker: #1e1e24;
+            --bg-card: #35353d;
+            --accent-red: #ff0000;
+            --accent-red-hover: #cc0000;
+            --text-white: #ffffff;
+            --text-gray: #b0b0b0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: rgba(30, 30, 36, 0.95);
+            padding: 5px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            /* Flex properties removidas daqui para não quebrar layouts específicos, adicionadas onde necessário */
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            background-image: url('https://g-opec.github.io/master/fav/favicon-32x32.png');
+            background-size: 24px;
+            background-repeat: no-repeat;
+            background-position: left center;
+            padding-left: 36px;
+            font-size: 20px;
+            letter-spacing: -0.04rem;
+            font-weight: 400;
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-btn {
+            background-color: transparent;
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            padding: 10px 25px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--accent-red);
+            color: white;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 70px 0 100px;
+            text-align: center;
+            background: radial-gradient(circle at center, #3a3a42 0%, var(--bg-dark) 70%);
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            color: var(--accent-red);
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        /* Hero Buttons Container (NOVO) */
+        .hero-buttons-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .cta-button {
+            background-color: var(--accent-red);
+            color: white;
+            padding: 15px 0;
+            /* Largura controlada pelo width */
+            width: 100%;
+            max-width: 300px;
+            /* Limite de largura */
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+            text-align: center;
+            display: block;
+        }
+
+        .cta-button:hover {
+            background-color: var(--accent-red-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Botões secundários com estilo visual levemente diferente se desejar, 
+           mas mantendo a classe cta-button para uniformidade solicitada */
+        .cta-button.secondary {
+            background-color: transparent;
+            border: 2px solid var(--accent-red);
+            box-shadow: none;
+        }
+
+        .cta-button.secondary:hover {
+            background-color: var(--accent-red);
+            color: white;
+        }
+
+
+        .btn-main {
+            background-color: var(--accent-red);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.4);
+        }
+
+        /* --- Comparison Section --- */
+        .comparison {
+            padding: 50px 0;
+            background-color: var(--bg-darker);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .section-title .bar {
+            width: 60px;
+            height: 4px;
+            background-color: var(--accent-red);
+            margin: 0 auto;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .comp-card {
+            padding: 40px;
+            border-radius: 10px;
+        }
+
+        .comp-card.old {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid #444;
+            opacity: 0.7;
+        }
+
+        .comp-card.new {
+            background-color: var(--bg-card);
+            border: 2px solid var(--accent-red);
+            transform: scale(1.05);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .comp-card.new::before {
+            content: "NOSSO SISTEMA";
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-red);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .comp-list {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .comp-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+        }
+
+        .comp-list i {
+            margin-right: 15px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .old .comp-list i {
+            color: #666;
+        }
+
+        .new .comp-list i {
+            color: var(--accent-red);
+        }
+
+        /* --- Features Grid --- */
+        .features {
+            padding: 50px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background-color: var(--bg-card);
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 4px solid transparent;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            border-left: 4px solid var(--accent-red);
+            background-color: #3e3e46;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            color: var(--accent-red);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .feature-card p {
+            color: var(--text-gray);
+            font-size: 14px;
+        }
+
+        /* --- NOVO: Seção de Relatórios --- */
+        .reports-section {
+            padding: 80px 0;
+            background-color: #1a1a1f;
+            background-image:
+                linear-gradient(rgba(26, 26, 31, 0.9), rgba(26, 26, 31, 0.9)),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23333333' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .reports-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .report-item {
+            background: rgba(44, 44, 50, 0.6);
+            border: 1px solid #444;
+            border-radius: 4px;
+            padding: 12px 25px;
+            color: #d1d1d1;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: default;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .report-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background-color: var(--accent-red);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .report-item:hover {
+            background: #2c2c34;
+            color: white;
+            border-color: var(--accent-red);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .report-item:hover::before {
+            opacity: 1;
+        }
+
+        .report-item i {
+            color: var(--accent-red);
+            font-size: 12px;
+            opacity: 0.5;
+        }
+
+        .report-item:hover i {
+            opacity: 1;
+        }
+
+
+        /* --- AI Highlight Section --- */
+        .ai-section {
+            background: linear-gradient(90deg, #1e1e24 0%, #2a0a0a 100%);
+            padding: 50px 0;
+            border-top: 1px solid #441111;
+            border-bottom: 1px solid #441111;
+        }
+
+        .ai-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .ai-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .ai-badge {
+            background-color: rgba(255, 0, 0, 0.1);
+            color: var(--accent-red);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 1px solid var(--accent-red);
+        }
+
+
+        .dev_photo {
+            width: 153px;
+            height: 153px;
+            border-radius: 50%;
+            border-style: solid;
+            border-color: red;
+            animation: rise-and-glow 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+
+        /* --- Seção Segurança --- */
+        .security-badge-section {
+            padding: 50px 0;
+            background: #232329;
+            border-y: 1px solid #333;
+        }
+
+        .security-grid {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .sec-item {
+            max-width: 250px;
+        }
+
+        .sec-item i {
+            font-size: 30px;
+            color: var(--accent-red);
+            margin-bottom: 15px;
+        }
+
+        .sec-item h4 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Clientes (Carrossel Horizontal) --- */
+        .clients {
+            padding: 50px 0;
+            background: var(--bg-darker);
+            overflow: hidden;
+        }
+
+        .carrossel {
+            margin: 0 auto;
+            padding: 20px 0;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .carrossel>* {
+            flex: 0 0 100%;
+        }
+
+        .group {
+            display: flex;
+            gap: 20px;
+            will-change: transform;
+            animation: scrolling 10s linear infinite;
+            padding-right: 20px;
+        }
+
+        .card {
+            width: 100%;
+            color: white;
+            border-radius: 24px;
+            box-shadow: rgba(0, 0, 0, 10%) 5px 5px 20px 0;
+            padding: 20px;
+            font-size: xx-large;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+            display: flex;
+        }
+
+        .card img {
+            height: 50px;
+            filter: grayscale(1) brightness(2);
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+
+        .card img:hover {
+            filter: grayscale(0) brightness(1);
+            opacity: 1;
+        }
+
+        @keyframes scrolling {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* --- Testemunhos (Carrossel VERTICAL NOVO) --- */
+        .testimonials {
+            padding: 50px 0;
+        }
+
+        /* Container que esconde o que passa do tamanho */
+        .vertical-carousel-wrapper {
+            height: 400px;
+            /* Altura visível */
+            overflow: hidden;
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Sombras para efeito de fade in/out no topo e base */
+        .vertical-carousel-wrapper::before,
+        .vertical-carousel-wrapper::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .vertical-carousel-wrapper::before {
+            top: 0;
+            background: linear-gradient(to bottom, var(--bg-dark), transparent);
+        }
+
+        .vertical-carousel-wrapper::after {
+            bottom: 0;
+            background: linear-gradient(to top, var(--bg-dark), transparent);
+        }
+
+        /* A trilha que move */
+        .vertical-track {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            animation: vertical-scroll 15s linear infinite;
+        }
+
+        /* Pausar ao passar o mouse para ler */
+        .vertical-track:hover {
+            animation-play-state: paused;
+        }
+
+        .test-card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #444;
+            flex-shrink: 0;
+            /* Impede que o card encolha */
+        }
+
+        .test-card i {
+            color: var(--accent-red);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .test-card p {
+            font-style: italic;
+            color: var(--text-gray);
+            margin-bottom: 20px;
+        }
+
+        .author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-img {
+            width: 50px;
+            height: 50px;
+            background: #555;
+            border-radius: 50%;
+        }
+
+        @keyframes vertical-scroll {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-50%);
+            }
+
+            /* Move metade da altura total (conjunto original + clone) */
+        }
+
+
+        /* --- Formulário de Contato --- */
+        .contact-section {
+            padding: 50px 0;
+            background: var(--bg-dark);
+        }
+
+        .contact-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 50px;
+            border-radius: 15px;
+            border: 1px solid var(--bg-darker);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-gray);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: #2c2c34;
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: white;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: var(--accent-red);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: #111;
+            padding: 40px 0;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comp-card.new {
+                transform: scale(1);
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .cta-button {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">G-opec</a>
+            <a href="https://g-opec.github.io/master/" class="nav-btn">Acessar Sistema</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Controle Total da Sua <br> <span>Operação Comercial</span></h1>
+            <p>Esqueça planilhas e processos manuais. Um ecossistema completo com Inteligência Artificial, Auditoria de
+                Breaks e Gestão Digital Integrada.</p>
+
+            <div class="hero-buttons-container">
+                <a href="#features" class="cta-button secondary">Funcionalidades</a>
+                <a href="#reports" class="cta-button secondary">Gestão</a>
+                <a href="#security" class="cta-button secondary">Segurança</a>
+                <a href="#contato" class="cta-button">Solicitar Demonstração</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="comparison">
+        <div class="container">
+            <div class="section-title">
+                <h2>Por que evoluir?</h2>
+                <div class="bar"></div>
+            </div>
+
+            <div class="comparison-grid">
+                <div class="comp-card old">
+                    <h3>Gestão Tradicional</h3>
+                    <ul class="comp-list">
+                        <li><i class="fas fa-times"></i> Cálculo manual de tempo de leitura</li>
+                        <li><i class="fas fa-times"></i> Gravação de áudio depende de locutor disponível</li>
+                        <li><i class="fas fa-times"></i> Prints de redes sociais salvos em pastas soltas</li>
+                        <li><i class="fas fa-times"></i> Relatórios de falhas feitos à mão</li>
+                        <li><i class="fas fa-times"></i> Dificuldade em ver disponibilidade de grade</li>
+                    </ul>
+                </div>
+
+                <div class="comp-card new">
+                    <h3>G-opec</h3>
+                    <ul class="comp-list">
+                        <li><i class="fas fa-check"></i> <strong>IA Gemini</strong>&nbsp;gera áudio e calcula tempo</li>
+                        <li><i class="fas fa-check"></i> Auditoria e comprovação de falhas automatizada</li>
+                        <li><i class="fas fa-check"></i> Gestão de&nbsp;<strong> Co-Patrocínios</strong>&nbsp;Digitais
+                        </li>
+                        <li><i class="fas fa-check"></i> Integração nativa com&nbsp;<strong>Publicist CRM</strong></li>
+                        <li><i class="fas fa-check"></i> Relatorio exclusivo dos sistemas&nbsp;<strong>Sysrad
+                                (Youngarts) e Bemidia (Beaudio)</strong></li>
+                        <li><i class="fas fa-check"></i> Dashboard Financeiro e de Ocupação</li>
+                        <li><i class="fas fa-check"></i> Arquitetura em nuvem&nbsp;<strong>banco de dados hospedados em
+                                servidores google</strong></li>
+                        <li><i class="fas fa-check"></i> Sistema responsivel&nbsp;<strong>acessivel desktop e
+                                mobile</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ai-section">
+        <div class="ai-content">
+            <div class="ai-text">
+                <span class="ai-badge">POWERED BY GOOGLE GEMINI</span>
+                <h2>Produção de Conteúdo com IA</h2>
+                <p style="color: #ccc; margin-top: 15px; max-width: 600px;">
+                    Acelere sua produção. Nosso sistema utiliza inteligência artificial para ler seus textos de
+                    <strong>Testemunhais e Comerciais</strong> com vozes naturais, além de calcular automaticamente se o
+                    texto cabe no tempo contratado (30s, 45s, 60s).
+                </p>
+            </div>
+            <div style="font-size: 80px; color: var(--accent-red); opacity: 0.8;">
+                <i class="fas fa-robot"></i>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Módulos do Sistema</h2>
+                <div class="bar"></div>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-chart-pie feature-icon"></i>
+                    <h3>Relatórios Avançados</h3>
+                    <p>Mapas de veiculação, materiais pendentes, disponibilidade comercial e potencial de receitas
+                        (ocioso vs. vendido).</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-hashtag feature-icon"></i>
+                    <h3>Gestão Digital</h3>
+                    <p>Controle de entregas em redes sociais com upload de prints, comprovantes, estatisticas de venda e
+                        gestão de contratos compartilhados.</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-cogs feature-icon"></i>
+                    <h3>Configuração Total</h3>
+                    <p>Defina a grade de horários, horários válidos e irregulares para cada produto, gerencie usuários e
+                        integre com seu CRM.</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-envelope-open-text feature-icon"></i>
+                    <h3>Automação de E-mail</h3>
+                    <p>Agende o envio automático de relatórios de falhas, auditoria e materiais pendentes para sua
+                        equipe.</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-microphone-lines feature-icon"></i>
+                    <h3>Fluxo de Materiais</h3>
+                    <p>Centralize o recebimento de arquivos, gere off's diretamente na plataforma e envie materiais
+                        gravados ou testemunhais diretamente para produção, gravadora ou opec.</p>
+                </div>
+
+                <div class="feature-card">
+                    <i class="fas fa-shield-halved feature-icon"></i>
+                    <h3>Auditoria Blindada</h3>
+                    <p>Controle rigoroso de falhas, "calhaus" e compensações. Garanta que o que foi vendido foi
+                        entregue.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="reports" class="reports-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Ecossistema de Dados</h2>
+                <div class="bar"></div>
+                <p style="color:#aaa; margin-top:10px;">Controle granular de todos os tipos de mídia e faturamento.</p>
+            </div>
+
+            <div class="reports-container">
+                <div class="report-item"><i class="fas fa-bolt"></i> Flash</div>
+                <div class="report-item"><i class="fas fa-bullhorn"></i> Ação externa</div>
+                <div class="report-item"><i class="fas fa-phone-volume"></i> Chamadas</div>
+                <div class="report-item"><i class="fas fa-quote-right"></i> Testemunhal/Citação</div>
+                <div class="report-item"><i class="fas fa-file-audio"></i> Vh Pat</div>
+                <div class="report-item"><i class="fas fa-handshake"></i> Patrocínios</div>
+                <div class="report-item"><i class="fas fa-microphone"></i> Entrevista</div>
+                <div class="report-item"><i class="fas fa-trophy"></i> Pauta prêmio</div>
+                <div class="report-item"><i class="fas fa-search"></i> Auditoria</div>
+                <div class="report-item"><i class="fas fa-map"></i> Mapa de veiculações</div>
+                <div class="report-item"><i class="fas fa-folder-open"></i> Mapa de Materiais</div>
+                <div class="report-item"><i class="fas fa-clock"></i> Relógio de Breaks</div>
+                <div class="report-item"><i class="fas fa-exclamation-circle"></i> Materiais Pendentes</div>
+                <div class="report-item"><i class="fas fa-calendar-check"></i> Disponibilidade Comercial</div>
+                <div class="report-item"><i class="fas fa-chart-line"></i> Potencial de Receitas</div>
+                <div class="report-item"><i class="fas fa-file-invoice-dollar"></i> Relatório de Faturamento</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="security" class="security-badge-section">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 32px;"><span>Cybersegurança</span></h2>
+            </div>
+            <div class="security-grid">
+                <div class="sec-item">
+                    <i class="fab fa-google"></i>
+                    <h4>Conta Google Obrigatória</h4>
+                    <p style="font-size: 12px; color: #888;">Acesso restrito via OAuth2. Apenas usuários autorizados no
+                        Workspace acessam os dados.</p>
+                </div>
+                <div class="sec-item">
+                    <i class="fas fa-user-shield"></i>
+                    <h4>Criptografia Google</h4>
+                    <p style="font-size: 12px; color: #888;">Seus dados são processados sob o protocolo de segurança de
+                        infraestrutura do Google.</p>
+                </div>
+                <div class="sec-item">
+                    <i class="fab fa-github"></i>
+                    <h4>Interface Protegida</h4>
+                    <p style="font-size: 12px; color: #888;">Código front-end servido via GitHub Pages com integração
+                        segura por Iframe.</p>
+                </div>
+                <div class="sec-item">
+                    <i class="fa-solid fa-shield"></i>
+                    <h4>Controle de acesso</h4>
+                    <p style="font-size: 12px; color: #888;">Controle total do cadastros de usuários e permissões de
+                        acesso.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ai-section">
+        <div class="ai-content">
+            <div class="ai-text">
+                <span class="ai-badge">Futuro & tecnolgia</span>
+                <h2>Desenvolvimento Contínuo</h2>
+                <p style="color: #ccc; margin-top: 15px; max-width: 600px;">
+                    Estamos empenhados em oferecer suporte em novas integrações, relatorios e padronização de
+                    <strong>operações Comerciais e administrativas</strong> com foco no complice de veiculos de
+                    comunicação.
+                </p>
+            </div>
+            <div style="font-size: 80px; color: var(--accent-red); opacity: 0.8;">
+                <i class="fas fa-lightbulb"></i>
+                <i class="fas fa-code"></i>
+                <i class="fas fa-handshake"></i>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 60px;">
+                <h2 style="font-size: 32px;">O que dizem os <span>Gestores</span></h2>
+            </div>
+
+            <div class="vertical-carousel-wrapper">
+                <div class="vertical-track">
+                    <div class="test-card">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"A automação do cálculo de tempo de leitura via IA reduziu erros de gravação em 90%. O G-opec
+                            mudou nossa agilidade."</p>
+                        <div class="author">
+                            <div class="author-img"></div>
+                            <div>
+                                <strong>Ricardo M.</strong><br>
+                                <small>Diretor de Operações - Rádio FM</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test-card">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"A segurança de saber que tudo roda dentro do ambiente Google nos dá tranquilidade total com
+                            os dados comerciais."</p>
+                        <div class="author">
+                            <div class="author-img"></div>
+                            <div>
+                                <strong>Ana Paula L.</strong><br>
+                                <small>Gerente Comercial - Grupo de Mídia</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test-card">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"Finalmente conseguimos organizar as entregas digitais junto com o dial. Relatórios
+                            unificados facilitaram muito."</p>
+                        <div class="author">
+                            <div class="author-img"></div>
+                            <div>
+                                <strong>Carlos E.</strong><br>
+                                <small>Coordenador - TV Local</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="test-card">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"A automação do cálculo de tempo de leitura via IA reduziu erros de gravação em 90%. O G-opec
+                            mudou nossa agilidade."</p>
+                        <div class="author">
+                            <div class="author-img"></div>
+                            <div>
+                                <strong>Ricardo M.</strong><br>
+                                <small>Diretor de Operações - Rádio FM</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test-card">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"A segurança de saber que tudo roda dentro do ambiente Google nos dá tranquilidade total com
+                            os dados comerciais."</p>
+                        <div class="author">
+                            <div class="author-img"></div>
+                            <div>
+                                <strong>Ana Paula L.</strong><br>
+                                <small>Gerente Comercial - Grupo de Mídia</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="test-card">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"Finalmente conseguimos organizar as entregas digitais junto com o dial. Relatórios
+                            unificados facilitaram muito."</p>
+                        <div class="author">
+                            <div class="author-img"></div>
+                            <div>
+                                <strong>Carlos E.</strong><br>
+                                <small>Coordenador - TV Local</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="clients">
+        <h3 style="text-align: center; margin-bottom: 40px; color: #888;">Veículos que confiam no G-OPEC</h3>
+        <div class="container">
+            <div class="carrossel">
+                <div class="group">
+                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+RADIO+1" alt="Logo 1">
+                    </div>
+                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+TV+2" alt="Logo 2"></div>
+                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+PORTAL+3" alt="Logo 3">
+                    </div>
+                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+RADIO+4" alt="Logo 4">
+                    </div>
+                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+RADIO+5" alt="Logo 5">
+                    </div>
+                </div>
+                <div aria-hidden="true" class="group">
+                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+RADIO+1" alt="Logo 1">
+                    </div>
+                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+TV+2" alt="Logo 2"></div>
+                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+PORTAL+3" alt="Logo 3">
+                    </div>
+                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+RADIO+4" alt="Logo 4">
+                    </div>
+                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+RADIO+5" alt="Logo 5">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="text-align: center; padding: 50px 0px 0px 0px; background-color: var(--bg-dark);">
+        <div class="container">
+            <h2 style="margin-bottom: 20px;">Pronto para otimizar sua emissora?</h2>
+            <img src="https://g-opec.github.io/master/dev_photo.png" class="dev_photo">
+        </div>
+    </section>
+
+    <section id="contato" class="contact-section">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <h2>Solicite uma Demonstração</h2>
+                    <p style="color: #888;">Entenda como o G-opec pode melhorar a qualidade de sua operação comercial.
+                    </p>
+                </div>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label>Nome Completo</label>
+                        <input type="text" name="nome" placeholder="Ex: João Silva" required>
+                    </div>
+                    <div class="form-group">
+                        <label>E-mail Google</label>
+                        <input type="email" name="email"
+                            placeholder="nome@suaemissora.com.br Workspace ou nome@gmail.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo de Veículo</label>
+                        <select name="tipo">
+                            <option value="Rádio">Rádio</option>
+                            <option value="Televisão">Televisão</option>
+                            <option value="Portal de Notícias">Portal de Notícias</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Mensagem</label>
+                        <textarea name="mensagem" rows="4" placeholder="Como podemos te ajudar?"></textarea>
+                    </div>
+
+                    <button type="submit" id="submitBtn" class="btn-main" style="width: 100%;">Enviar
+                        Solicitação</button>
+
+                    <p id="formStatus" style="display:none; text-align:center; margin-top:10px; font-weight:bold;"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 G-opec. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault(); // Impede o recarregamento da página
+
+            var btn = document.getElementById('submitBtn');
+            var status = document.getElementById('formStatus');
+            var form = this;
+
+            // Feedback visual de carregamento
+            btn.textContent = 'Enviando...';
+            btn.style.opacity = '0.7';
+            btn.disabled = true;
+
+            // Coleta os dados
+            var formData = new FormData(form);
+
+            // *** URL DO APPS SCRIPT ***
+            var scriptURL = 'https://script.google.com/macros/s/AKfycbwPhXp8NbSH6JbEERcbxqSTix86QeilygGmH3PlQuTGJP8QVrhdQHo-Uob4powmTmOI5w/exec';
+
+            fetch(scriptURL, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    // Sucesso
+                    status.style.display = 'block';
+                    status.style.color = '#00ff00'; // Verde
+                    status.textContent = 'Mensagem enviada com sucesso!';
+                    form.reset(); // Limpa o formulário
+
+                    // Restaura o botão após 3 segundos
+                    setTimeout(() => {
+                        btn.textContent = 'Enviar Solicitação';
+                        btn.style.opacity = '1';
+                        btn.disabled = false;
+                        status.style.display = 'none';
+                    }, 5000);
+                })
+                .catch(error => {
+                    // Erro
+                    console.error('Erro!', error.message);
+                    status.style.display = 'block';
+                    status.style.color = 'red';
+                    status.textContent = 'Erro ao enviar. Tente novamente.';
+
+                    btn.textContent = 'Enviar Solicitação';
+                    btn.style.opacity = '1';
+                    btn.disabled = false;
+                });
+        });
+    </script>
+</body>
+
+</html>
