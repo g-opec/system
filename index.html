@@ -1082,56 +1082,53 @@
         </div>
     </footer>
     <script>
-        document.getElementById('contactForm').addEventListener('submit', function (e) {
-            e.preventDefault(); // Impede o recarregamento da página
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault(); 
 
-            var btn = document.getElementById('submitBtn');
-            var status = document.getElementById('formStatus');
-            var form = this;
+        var btn = document.getElementById('submitBtn');
+        var status = document.getElementById('formStatus');
+        var form = this;
 
-            // Feedback visual de carregamento
-            btn.textContent = 'Enviando...';
-            btn.style.opacity = '0.7';
-            btn.disabled = true;
+        btn.textContent = 'Enviando...';
+        btn.style.opacity = '0.7';
+        btn.disabled = true;
 
-            // Coleta os dados
-            var formData = new FormData(form);
+        var formData = new FormData(form);
+        var scriptURL = 'https://script.google.com/macros/s/AKfycbwPhXp8NbSH6JbEERcbxqSTix86QeilygGmH3PlQuTGJP8QVrhdQHo-Uob4powmTmOI5w/exec';
 
-            // *** URL DO APPS SCRIPT ***
-            var scriptURL = 'https://script.google.com/macros/s/AKfycbwPhXp8NbSH6JbEERcbxqSTix86QeilygGmH3PlQuTGJP8QVrhdQHo-Uob4powmTmOI5w/exec';
-
-            fetch(scriptURL, {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => {
-                    // Sucesso
-                    status.style.display = 'block';
-                    status.style.color = '#00ff00'; // Verde
-                    status.textContent = 'Mensagem enviada com sucesso!';
-                    form.reset(); // Limpa o formulário
-
-                    // Restaura o botão após 3 segundos
-                    setTimeout(() => {
-                        btn.textContent = 'Enviar Solicitação';
-                        btn.style.opacity = '1';
-                        btn.disabled = false;
-                        status.style.display = 'none';
-                    }, 5000);
-                })
-                .catch(error => {
-                    // Erro
-                    console.error('Erro!', error.message);
-                    status.style.display = 'block';
-                    status.style.color = 'red';
-                    status.textContent = 'Erro ao enviar. Tente novamente.';
-
-                    btn.textContent = 'Enviar Solicitação';
-                    btn.style.opacity = '1';
-                    btn.disabled = false;
-                });
+        fetch(scriptURL, {
+            method: 'POST',
+            mode: 'no-cors', 
+            body: formData
+        })
+        .then(() => {
+            // Com 'no-cors', não recebemos resposta JSON do servidor (resposta opaca).
+            // Se chegou aqui, assumimos que o Google recebeu a requisição com sucesso.
+            
+            status.style.display = 'block';
+            status.style.color = '#00ff00';
+            status.textContent = 'Mensagem enviada com sucesso!';
+            form.reset();
+            
+            setTimeout(() => {
+                btn.textContent = 'Enviar Solicitação';
+                btn.style.opacity = '1';
+                btn.disabled = false;
+                status.style.display = 'none';
+            }, 5000);
+        })
+        .catch(error => {
+            console.error('Erro!', error);
+            status.style.display = 'block';
+            status.style.color = 'red';
+            status.textContent = 'Erro ao enviar. Tente novamente.';
+            
+            btn.textContent = 'Enviar Solicitação';
+            btn.style.opacity = '1';
+            btn.disabled = false;
         });
-    </script>
+    });
+</script>
 </body>
 
 </html>
