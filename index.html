@@ -603,8 +603,20 @@
         .author-img {
             width: 50px;
             height: 50px;
-            background: #555;
+            background: #2c2c34;
+            border: 2px solid #444;
             border-radius: 50%;
+
+            /* Centraliza a letra */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* Estilo da letra */
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--accent-red);
+            text-transform: uppercase;
         }
 
         @keyframes vertical-scroll {
@@ -919,80 +931,7 @@
             </div>
 
             <div class="vertical-carousel-wrapper">
-                <div class="vertical-track">
-                    <div class="test-card">
-                        <i class="fas fa-quote-left"></i>
-                        <p>"A automação do cálculo de tempo de leitura via IA reduziu erros de gravação em 90%. O G-opec
-                            mudou nossa agilidade."</p>
-                        <div class="author">
-                            <div class="author-img"></div>
-                            <div>
-                                <strong>Ricardo M.</strong><br>
-                                <small>Diretor de Operações - Rádio FM</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="test-card">
-                        <i class="fas fa-quote-left"></i>
-                        <p>"A segurança de saber que tudo roda dentro do ambiente Google nos dá tranquilidade total com
-                            os dados comerciais."</p>
-                        <div class="author">
-                            <div class="author-img"></div>
-                            <div>
-                                <strong>Ana Paula L.</strong><br>
-                                <small>Gerente Comercial - Grupo de Mídia</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="test-card">
-                        <i class="fas fa-quote-left"></i>
-                        <p>"Finalmente conseguimos organizar as entregas digitais junto com o dial. Relatórios
-                            unificados facilitaram muito."</p>
-                        <div class="author">
-                            <div class="author-img"></div>
-                            <div>
-                                <strong>Carlos E.</strong><br>
-                                <small>Coordenador - TV Local</small>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="test-card">
-                        <i class="fas fa-quote-left"></i>
-                        <p>"A automação do cálculo de tempo de leitura via IA reduziu erros de gravação em 90%. O G-opec
-                            mudou nossa agilidade."</p>
-                        <div class="author">
-                            <div class="author-img"></div>
-                            <div>
-                                <strong>Ricardo M.</strong><br>
-                                <small>Diretor de Operações - Rádio FM</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="test-card">
-                        <i class="fas fa-quote-left"></i>
-                        <p>"A segurança de saber que tudo roda dentro do ambiente Google nos dá tranquilidade total com
-                            os dados comerciais."</p>
-                        <div class="author">
-                            <div class="author-img"></div>
-                            <div>
-                                <strong>Ana Paula L.</strong><br>
-                                <small>Gerente Comercial - Grupo de Mídia</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="test-card">
-                        <i class="fas fa-quote-left"></i>
-                        <p>"Finalmente conseguimos organizar as entregas digitais junto com o dial. Relatórios
-                            unificados facilitaram muito."</p>
-                        <div class="author">
-                            <div class="author-img"></div>
-                            <div>
-                                <strong>Carlos E.</strong><br>
-                                <small>Coordenador - TV Local</small>
-                            </div>
-                        </div>
-                    </div>
+                <div class="vertical-track" id="testimonials-track">
                 </div>
             </div>
         </div>
@@ -1002,28 +941,8 @@
         <h3 style="text-align: center; margin-bottom: 40px; color: #888;">Veículos que confiam no G-OPEC</h3>
         <div class="container">
             <div class="carrossel">
-                <div class="group">
-                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+RADIO+1" alt="Logo 1">
-                    </div>
-                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+TV+2" alt="Logo 2"></div>
-                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+PORTAL+3" alt="Logo 3">
-                    </div>
-                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+RADIO+4" alt="Logo 4">
-                    </div>
-                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+RADIO+5" alt="Logo 5">
-                    </div>
-                </div>
-                <div aria-hidden="true" class="group">
-                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+RADIO+1" alt="Logo 1">
-                    </div>
-                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+TV+2" alt="Logo 2"></div>
-                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+PORTAL+3" alt="Logo 3">
-                    </div>
-                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+RADIO+4" alt="Logo 4">
-                    </div>
-                    <div class="card"><img src="https://via.placeholder.com/200x50?text=LOGO+RADIO+5" alt="Logo 5">
-                    </div>
-                </div>
+                <div class="group" id="clients-group-1"></div>
+                <div aria-hidden="true" class="group" id="clients-group-2"></div>
             </div>
         </div>
     </section>
@@ -1082,6 +1001,66 @@
         </div>
     </footer>
     <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            carregarClientes();
+            carregarTestemunhos();
+        });
+
+        // --- 1. Carregar Clientes do JSON ---
+        function carregarClientes() {
+            fetch('clientes.json')
+                .then(response => response.json())
+                .then(data => {
+                    const clientsHTML = data.map(client => `
+                    <div class="card">
+                        <img src="${client.logo}" alt="${client.nome}">
+                    </div>
+                `).join('');
+
+                    // Preenche os dois grupos para o efeito infinito
+                    const gp1 = document.getElementById('clients-group-1');
+                    const gp2 = document.getElementById('clients-group-2');
+
+                    if (gp1) gp1.innerHTML = clientsHTML;
+                    if (gp2) gp2.innerHTML = clientsHTML;
+                })
+                .catch(error => console.error('Erro ao carregar clientes:', error));
+        }
+
+        // --- 2. Carregar Testemunhos do JSON ---
+        function carregarTestemunhos() {
+            fetch('testemunhos.json')
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('testimonials-track');
+                    if (!container) return;
+
+                    // Gera o HTML para cada testemunho
+                    const cardsHTML = data.map(t => {
+                        // Pega a primeira letra do nome
+                        const primeiraLetra = t.nome.charAt(0).toUpperCase();
+
+                        return `
+                    <div class="test-card">
+                        <i class="fas fa-quote-left"></i>
+                        <p>"${t.texto}"</p>
+                        <div class="author">
+                            <div class="author-img">${primeiraLetra}</div>
+                            <div>
+                                <strong>${t.nome}</strong><br>
+                                <small>${t.cargo}</small>
+                            </div>
+                        </div>
+                    </div>`;
+                    }).join('');
+
+                    // Duplica o conteúdo para garantir o loop infinito vertical
+                    container.innerHTML = cardsHTML + cardsHTML;
+                })
+                .catch(error => console.error('Erro ao carregar testemunhos:', error));
+        }
+
         document.getElementById('contactForm').addEventListener('submit', function (e) {
             e.preventDefault(); // Impede o recarregamento da página
 
