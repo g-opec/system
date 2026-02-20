@@ -709,15 +709,107 @@
                 max-width: 100%;
             }
         }
+
+        /* --- Modal de Login / Tutoriais --- */
+        .modal-overlay {
+            display: none; /* Oculto por padrão */
+            position: fixed;
+            z-index: 2000; /* Acima do header */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--bg-card);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--accent-red);
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(255, 0, 0, 0.2);
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            color: var(--text-gray);
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            color: white;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .tutorial-box {
+            background-color: #232329;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid var(--accent-red);
+            font-size: 14px;
+            color: #d1d1d1;
+        }
+
+        .tutorial-box h4 {
+            color: white;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .modal-links {
+            margin-top: 15px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .modal-links a {
+            color: var(--accent-red);
+            text-decoration: none;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+
+        .modal-links a:hover {
+            color: var(--accent-red-hover);
+            text-decoration: underline;
+        }
+
+        #google-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+        }
     </style>
 </head>
 
 <body>
 
-    <header>
+<header>
         <div class="container header-content">
             <a href="#" class="logo">G-opec</a>
-            <a href="https://g-opec.github.io/master/" class="nav-btn">Acessar Sistema</a>
+            <button onclick="abrirModalLogin()" class="nav-btn">Acessar Sistema</button>
         </div>
     </header>
 
@@ -999,11 +1091,33 @@
         </div>
     </section>
 
+<div id="loginModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal" onclick="fecharModalLogin()">&times;</span>
+            <h2>Acesso à Plataforma</h2>
+            <p style="color: var(--text-gray); font-size: 15px;">Para garantir a segurança dos dados da sua emissora, o acesso é feito exclusivamente com sua conta Google.</p>
+            
+            <div class="tutorial-box">
+                <h4><i class="fas fa-info-circle" style="color: var(--accent-red);"></i> Primeiro Acesso?</h4>
+                <p>Ao fazer login pela primeira vez, o Google exibirá uma tela de aviso pedindo permissão para o nosso aplicativo ler e executar scripts. <strong>Isso é normal e seguro.</strong></p>
+                <p style="margin-top: 8px;">Basta clicar em <strong>"Avançado"</strong> e depois em <strong>"Acessar G-Opec (não seguro)"</strong> para autorizar o ecossistema.</p>
+            </div>
+
+            <div id="google-button-container"></div>
+
+            <div class="modal-links">
+                <a href="#termos" id="link-termos">Termos de Serviço</a> | 
+                <a href="#privacidade" id="link-privacidade">Política de Privacidade</a>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <p>&copy; 2026 G-opec. Todos os direitos reservados.</p>
         </div>
     </footer>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -1114,6 +1228,52 @@
                     btn.disabled = false;
                 });
         });
+
+        // --- Lógica do Modal de Login ---
+        const modalLogin = document.getElementById('loginModal');
+
+        function abrirModalLogin() {
+            modalLogin.style.display = 'flex';
+            renderizarBotaoGoogle();
+        }
+
+        function fecharModalLogin() {
+            modalLogin.style.display = 'none';
+        }
+
+        // Fechar modal clicando fora dele
+        window.onclick = function(event) {
+            if (event.target == modalLogin) {
+                fecharModalLogin();
+            }
+        }
+
+        // --- Lógica do Google Login ---
+        function tratarRespostaDoGoogle(response) {
+            // O usuário logou com sucesso no modal!
+            // O 'response.credential' contém um token (JWT) com os dados dele, se você precisasse.
+            // Mas como seu objetivo é apenas garantir que ele tem sessão ativa, podemos redirecioná-lo agora:
+            
+            console.log("Usuário autenticado no frontend!");
+            
+            // Redireciona para a página onde está o seu Iframe
+            window.location.href = "https://g-opec.github.io/master/"; 
+        }
+
+        function renderizarBotaoGoogle() {
+            // Verifica se a biblioteca do Google carregou
+            if (window.google) {
+                google.accounts.id.initialize({
+                    client_id: "468554474551-8k99eh9p7bfoi0rkbd0eebj49t18ube1.apps.googleusercontent.com",
+                    callback: tratarRespostaDoGoogle
+                });
+                
+                google.accounts.id.renderButton(
+                    document.getElementById("google-button-container"),
+                    { theme: "filled_black", size: "large", shape: "rectangular", width: "300" }  // Botão escuro para combinar com seu layout
+                );
+            }
+        }
     </script>
 </body>
 
