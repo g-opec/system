@@ -1101,6 +1101,13 @@
                 <h4><i class="fas fa-info-circle" style="color: var(--accent-red);"></i> Primeiro Acesso?</h4>
                 <p>Ao fazer login pela primeira vez, o Google exibirá uma tela de aviso pedindo permissão para o nosso aplicativo ler e executar scripts. <strong>Isso é normal e seguro.</strong></p>
                 <p style="margin-top: 8px;">Basta clicar em <strong>"Avançado"</strong> e depois em <strong>"Acessar G-Opec (não seguro)"</strong> para autorizar o ecossistema.</p>
+            <div class="modal-links">
+                <a href="#tutorial" id="tutorial">Tutorial de acesso</a>
+            </div>    
+            </div>
+            <div class="tutorial-box">
+                <h4><i class="fas fa-check-circle" style="color: var(--accent-red);"></i> Veterano?</h4>
+            <p> Bem vindo de volta! selecione seu usuário e será redirecionado para a plataforma automaticamente.</p>
             </div>
 
             <div id="google-button-container"></div>
@@ -1194,7 +1201,6 @@
             // Coleta os dados
             var formData = new FormData(form);
 
-            // *** IMPORTANTE: COLE SUA URL DO APPS SCRIPT AQUI ***
             var scriptURL = 'https://script.google.com/macros/s/AKfycbz9nmtjMBrkQ4PsXMUiYpNy93vxMuwfnxIrwYKave3sWNfvsDBDiL___LHS8FOYQh15/exec';
 
             fetch(scriptURL, {
@@ -1264,6 +1270,7 @@
             // Verifica se a biblioteca do Google carregou
             if (window.google) {
                 google.accounts.id.initialize({
+                    
                     client_id: "468554474551-8k99eh9p7bfoi0rkbd0eebj49t18ube1.apps.googleusercontent.com",
                     callback: tratarRespostaDoGoogle
                 });
