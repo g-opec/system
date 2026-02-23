@@ -1254,6 +1254,15 @@
 
         function abrirModalLogin() {
             modalLogin.style.display = 'flex';
+            
+            // Verifica se o usuário já logou antes (salvo no localStorage)
+            const usuarioSalvo = localStorage.getItem('gopec_user_name');
+            if (usuarioSalvo) {
+                loginBoxes(true, usuarioSalvo);
+            } else {
+                loginBoxes(false);
+            }
+
             renderizarBotaoGoogle();
         }
 
@@ -1267,6 +1276,7 @@
                 fecharModalLogin();
             }
         }
+
         // Função auxiliar rápida para decodificar o token JWT do Google
         function parseJwt(token) {
             var base64Url = token.split('.')[1];
@@ -1277,48 +1287,59 @@
             return JSON.parse(jsonPayload);
         }
 
-        loginBoxes(false);
-        function loginBoxes(success) {
+        // Controle das caixas de texto do modal
+        function loginBoxes(isVeteran, userName = "") {
             const tutorialBox = document.querySelectorAll('.tutorial-box');
-            if (success) {
-                tutorialBox[0].style.display = 'none';
-                tutorialBox[1].style.display = 'block';
+            const veteranoTitulo = document.getElementById('Veterano');
+
+            if (isVeteran) {
+                tutorialBox[0].style.display = 'none';  // Esconde box de primeiro acesso
+                tutorialBox[1].style.display = 'block'; // Mostra box de veterano
+                
+                if (userName) {
+                    veteranoTitulo.innerHTML = '<i class="fas fa-check-circle" style="color: var(--accent-red);"></i> Olá, ' + userName + '!';
+                }
             } else {
                 tutorialBox[1].style.display = 'none';
                 tutorialBox[0].style.display = 'block';
             }
         }
+
         // --- Lógica do Google Login ---
         function tratarRespostaDoGoogle(response) {
-            loginBoxes(true);
-            // O usuário logou com sucesso no modal!
-
             console.log("Usuário autenticado no frontend!");
+            
             const tokenDecodificado = parseJwt(response.credential);
             const nomeUsario = tokenDecodificado.given_name;
             const emailUsuario = tokenDecodificado.email;
+            
+            // Salva o nome do usuário no navegador para os próximos acessos
+            localStorage.setItem('gopec_user_name', nomeUsario);
+            
+            // Atualiza o modal na hora para o modo veterano
+            loginBoxes(true, nomeUsario);
+
             const urlBaseAppsScript = "https://g-opec.github.io/master/";
             const urlFinal = urlBaseAppsScript + "?authuser=" + emailUsuario;
 
-            const veterano = document.getElementById('Veterano');
-            veterano.innerHTML = 'Olá' + ' ' + nomeUsario + '!';
-
-            // Redireciona para a página onde está o seu Iframe
-            window.location.href = urlFinal;
+            // Adicionei um pequeno delay (800ms) para dar tempo de o usuário ler o "Olá, Nome!" antes de sumir da tela
+            setTimeout(() => {
+                window.location.href = urlFinal;
+            }, 800);
         }
 
         function renderizarBotaoGoogle() {
             // Verifica se a biblioteca do Google carregou
             if (window.google) {
                 google.accounts.id.initialize({
-
                     client_id: "468554474551-8k99eh9p7bfoi0rkbd0eebj49t18ube1.apps.googleusercontent.com",
-                    callback: tratarRespostaDoGoogle
+                    callback: tratarRespostaDoGoogle,
+                    auto_select: true // Tenta logar automaticamente caso a sessão do Google já esteja ativa e autorizada
                 });
 
                 google.accounts.id.renderButton(
                     document.getElementById("google-button-container"),
-                    { theme: "filled_black", size: "large", shape: "rectangular", width: "300" }  // Botão escuro para combinar com seu layout
+                    { theme: "filled_black", size: "large", shape: "rectangular", width: "300" } 
                 );
             }
         }
