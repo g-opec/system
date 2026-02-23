@@ -1277,16 +1277,20 @@
             return JSON.parse(jsonPayload);
         }
 
-        const tutorialBox = document.querySelectorAll('.tutorial-box');
-        tutorialBox[1].style.display = 'none';
-        tutorialBox[0].style.display = 'block';
-
+        loginBoxes(false);
+        function loginBoxes(success) {
+            const tutorialBox = document.querySelectorAll('.tutorial-box');
+            if (success) {
+                tutorialBox[0].style.display = 'none';
+                tutorialBox[1].style.display = 'block';
+            } else {
+                tutorialBox[1].style.display = 'none';
+                tutorialBox[0].style.display = 'block';
+            }
+        }
         // --- Lógica do Google Login ---
         function tratarRespostaDoGoogle(response) {
-            const tutorialBox = document.querySelectorAll('.tutorial-box');
-            tutorialBox[0].style.display = 'none';
-            tutorialBox[1].style.display = 'block';
-
+            loginBoxes(true);
             // O usuário logou com sucesso no modal!
 
             console.log("Usuário autenticado no frontend!");
