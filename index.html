@@ -1277,13 +1277,13 @@
             return JSON.parse(jsonPayload);
         }
 
-        const tutorialBox = document.querySelector('.tutorial-box');
+        const tutorialBox = document.querySelectorAll('.tutorial-box');
         tutorialBox[1].style.display = 'none';
         tutorialBox[0].style.display = 'block';
 
         // --- Lógica do Google Login ---
         function tratarRespostaDoGoogle(response) {
-            const tutorialBox = document.querySelector('.tutorial-box');
+            const tutorialBox = document.querySelectorAll('.tutorial-box');
             tutorialBox[0].style.display = 'none';
             tutorialBox[1].style.display = 'block';
 
