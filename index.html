@@ -813,6 +813,101 @@
             justify-content: center;
             margin-top: 25px;
         }
+        video {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--accent-red);
+    box-shadow: 0 10px 40px rgba(255, 0, 0, 0.2);
+  width: 520px;
+  height: auto;
+}
+        /* --- Novo Layout Hero (Flexbox) --- */
+.hero-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    text-align: left; /* Muda o texto para a esquerda na versão desktop */
+}
+
+.hero-text-content {
+    flex: 1;
+    max-width: 600px;
+}
+
+.hero p {
+    margin: 0 0 30px 0; /* Remove a margem automática que centralizava */
+}
+
+/* Alinhando os botões no novo layout */
+.hero-buttons-container {
+    display: flex;
+    flex-direction: row; /* Coloca os botões lado a lado */
+    flex-wrap: wrap; /* Permite quebrar linha se não houver espaço */
+    align-items: flex-start;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.cta-button {
+    width: auto; /* Remove o width 100% para eles ficarem contidos */
+    padding: 12px 25px; /* Ajuste sutil no padding */
+}
+
+/* Garante que o vídeo seja responsivo e não vaze da tela */
+.hero-video video {
+    max-width: 100%;
+}
+
+/* Responsividade para telas menores (Mobile e Tablets) */
+@media (max-width: 992px) {
+    .hero-layout {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .hero-text-content {
+        max-width: 100%;
+    }
+
+    .hero p {
+        margin: 0 auto 30px auto;
+    }
+
+    .hero-buttons-container {
+        justify-content: center;
+    }
+}
+/* --- Estilos do Footer --- */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.footer-link {
+    color: var(--accent-red);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--text-white);
+    text-decoration: underline;
+}
+
+/* Centraliza no mobile */
+@media (max-width: 768px) {
+    .footer-content {
+        justify-content: center;
+        flex-direction: column;
+    }
+}
     </style>
 </head>
 
@@ -826,10 +921,10 @@
     </header>
 
     <section class="hero">
-        <div class="container">
+    <div class="container hero-layout">
+        <div class="hero-text-content">
             <h1>Controle Total da Sua <br> <span>Operação Comercial</span></h1>
-            <p>Esqueça planilhas e processos manuais. Um ecossistema completo com Inteligência Artificial, Auditoria de
-                Breaks e Gestão Digital Integrada.</p>
+            <p>Esqueça planilhas e processos manuais. Um ecossistema completo com Inteligência Artificial, Auditoria de Breaks e Gestão Digital Integrada.</p>
 
             <div class="hero-buttons-container">
                 <a href="#features" class="cta-button secondary">Funcionalidades</a>
@@ -838,7 +933,15 @@
                 <a href="#contato" class="cta-button">Solicitar Demonstração</a>
             </div>
         </div>
-    </section>
+        
+        <div class="hero-video">
+            <video autoplay loop muted>
+                <source src="https://g-opec.github.io/system/imvi/video.webm" type="video/webm">
+                Seu navegador não suporta a tag de vídeo.
+            </video>
+        </div>
+    </div>
+</section>
 
     <section class="comparison">
         <div class="container">
@@ -1137,10 +1240,11 @@
     </div>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2026 G-opec. Todos os direitos reservados.</p>
-        </div>
-    </footer>
+    <div class="container footer-content">
+        <p>&copy; 2026 G-opec. Todos os direitos reservados.</p>
+        <a href="suporte.html" class="footer-link">Central de Suporte</a>
+    </div>
+</footer>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
 
